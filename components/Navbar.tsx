@@ -5,9 +5,12 @@ import { ThemeToggle } from './ThemeToggle'
 import { buttonVariants } from './ui/Button'
 import SignInButton from './ui/SigninButton'
 import SignOutButton from './ui/SignOutButton'
+import Image from 'next/image'
 
 const Navbar = async () => {
     const session = await getServerSession(authOptions)
+
+
 
     return (
         <div className='fixed backdrop-blur-sm bg-white/75 dark:bg-slate-900/75 z-50 top-0 left-0 right-0 h-20 border-b border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-between'>
@@ -27,7 +30,7 @@ const Navbar = async () => {
                         className={buttonVariants({ variant: 'ghost' })}>
                         Documentation
                     </Link>
-                    {session ? (
+                    {session ?.user ? (
                         <>
                             <Link
                                 className={buttonVariants({ variant: 'ghost' })}
@@ -35,6 +38,16 @@ const Navbar = async () => {
                                 Dashboard
                             </Link>
                             <SignOutButton />
+                            <Link href="/dashboard">
+                                <Image
+                                    // @ts-ignore
+                                    src={session?.user.image}
+                                    width={37}
+                                    height={37}
+                                    className="rounded-full"
+                                    alt="profile"
+                                />
+                            </Link>
                         </>
                     ) : (
                         <SignInButton />
