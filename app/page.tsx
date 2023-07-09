@@ -18,7 +18,7 @@ export default function Home() {
             <LargeHeading
                 size='lg'
                 className='three-d text-black dark:text-light-gold'>
-              Easily track your <br /> monthly expenses.
+              Track monthly<br />expenses <br />with ease.
             </LargeHeading>
 
             <Paragraph className='max-w-xl lg:text-left'>
@@ -39,7 +39,7 @@ export default function Home() {
                   quality={100}
                   style={{ objectFit: 'contain' }}
                   fill
-                  src='/typewriter.png'
+                  src='/blacklion.png'
                   alt='typewriter'
               />
             </div>

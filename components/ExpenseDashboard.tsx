@@ -5,17 +5,12 @@ import LargeHeading from "@/components/ui/LargeHeading";
 import Paragraph from "@/components/ui/Paragraph";
 import Table from "@/ui/Table";
 import ExpenseOptions from "@/components/ExpenseOptions";
+import { notFound } from 'next/navigation'
 
-const ExpenseDashboard = async () => {
+
+const ExpenseDashboard = async ({}) => {
     const user = await getServerSession(authOptions);
-    if (!user) {
-        return {
-            redirect: {
-                destination: "/login",
-                permanent: false,
-            },
-        };
-    }
+    if (!user) return notFound();
 
     const expenses = await db.expense.findMany({
         where: {
@@ -30,6 +25,8 @@ const ExpenseDashboard = async () => {
     }, 0);
 
     const roundedTotal = total.toFixed(2);
+    // roundedTotal = 0.00 in number format
+    const roundedTotalNumber = Number(roundedTotal);
 
     return (
         <div className="container flex flex-col gap-6">
@@ -43,9 +40,9 @@ const ExpenseDashboard = async () => {
             </Paragraph>
 
             <Table expenses={expenses} />
-            <Paragraph className="text-center font-semibold md:text-left mt-4 -mb-4 ">
+            {roundedTotalNumber > 0 && <Paragraph className="text-center font-semibold md:text-left mt-4 -mb-4 ">
                 Total: ${roundedTotal}
-            </Paragraph>
+            </Paragraph>}
         </div>
     );
 };

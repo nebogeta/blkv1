@@ -8,9 +8,9 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toast } from "@/ui/ToastComponent";
-import { Expense } from "@/types/Expense";
+import { Expense } from "@prisma/client";
 
 interface ExpenseOptionsProp {
     expenses: Expense[];
@@ -26,7 +26,7 @@ const ExpenseOptions: FC<ExpenseOptionsProp> = ({expenses}) => {
     const create = () => {
         try {
             setCreateNewExpense(true);
-            router.push("/expense/expense");
+            router.push("/expense/create")
         } catch (error) {
             toast({
                 title: "Something went wrong creating expense",
@@ -41,7 +41,7 @@ const ExpenseOptions: FC<ExpenseOptionsProp> = ({expenses}) => {
     const group = () => {
         try {
             setGroupExpense(true);
-            router.push("/group-search/query");
+            router.push("/group-search/query")
         } catch (error) {
             toast({
                 title: "Something went wrong creating expense",

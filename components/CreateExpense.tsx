@@ -9,6 +9,7 @@ import { toast } from "@/ui/ToastComponent";
 import { useRouter } from "next/navigation";
 import { NextPage } from "next";
 
+
 interface ExpenseData {
     description: string;
     amount: number;
@@ -58,6 +59,8 @@ const CreateExpense: NextPage = () => {
         }
     }
 
+
+    // @ts-ignore
     return (
         <div className="container md:max-w-2xl">
             <div className="flex flex-col gap-6 items-center">
@@ -77,14 +80,14 @@ const CreateExpense: NextPage = () => {
                         placeholder="Enter Description"
                         value={data.description}
                         onChange={(e) =>
-                            setData({ ...data, description: e.target.value })
+                            setData({ ...data, description: (e.target.value) })
                         }
                     />
 
                     <Input
                         placeholder="Enter amount"
                         value={data.amount}
-                        onChange={(e) => setData({ ...data, amount: Number(e.target.value) })}
+                        onChange={(e) => setData({ ...data, amount:  Number(e.target.value) })}
                         type="number"
                     />
                     <Input
@@ -95,9 +98,9 @@ const CreateExpense: NextPage = () => {
 
                     <Input
                         placeholder="Enter Date"
-                        value={data.date.toISOString().split("T")[0]}
+                        value={data.date.toISOString().split('T')[0]}
                         onChange={(e) =>
-                            setData({ ...data, date: new Date(e.target.value) })
+                            setData({ ...data, date:new Date(e.target.value) })
                         }
                         type="date"
                     />

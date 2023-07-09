@@ -28,6 +28,7 @@
       "@/helpers/*": ["./helpers/*"],
       "@/types/*": ["./types/*"],
       "@redux/*": ["./redux/*"],
+      "@/Context/*": ["./Context/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,18 +1,21 @@
 'use client';
 
-import { Icons } from "@/components/Icons";
-import { Button } from "@/components/ui/Button";
-import { toast } from "@/ui/ToastComponent";
-import { ThemeProvider, createTheme } from "@mui/material";
+import {Icons} from "@/components/Icons";
+import {Button} from "@/components/ui/Button";
+import {toast} from "@/ui/ToastComponent";
+import {createTheme, ThemeProvider} from "@mui/material";
 // @ts-ignore
-import { DataGrid, GridColDef, GridRenderHeaderParams } from "@mui/x-data-grid";
-import { useTheme } from "next-themes";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { Expense } from "@/types/Expense";
+import {DataGrid, GridColDef, GridRenderHeaderParams} from "@mui/x-data-grid";
+import {useTheme} from "next-themes";
+import {useRouter} from "next/navigation";
+import React, {useState} from "react";
+import {Expense} from '@prisma/client'
 
 interface TableProps {
     expenses: Expense[];
+}
+type ModifiedExpense<k extends keyof Expense> = {
+    [key in k]: Expense[key];
 }
 
 const Table: React.FC<TableProps> = ({ expenses }) => {
@@ -20,8 +23,8 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
         { field: "name", headerName: "Username", width: 250 },
-        { field: "description", headerName: "Description", width: 300 },
-        { field: "amount", headerName: "Amount in $", width: 150 },
+        { field: "description", headerName: "Description", width: 250 },
+        { field: "amount", headerName: "Amount in $", width: 200 },
         { field: "date", headerName: "Date", width: 150 },
         { field: "group", headerName: "Group", width: 150 },
         {
@@ -34,7 +37,7 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
 
     const router = useRouter();
     const handleEdit = async (itemId: number) => {
-        router.push(`/update/expense?id=${itemId}`);
+        await router.push(`/update/expense?id=${itemId}`);
     };
 
     const handleDelete = async (itemId: number) => {
@@ -58,20 +61,20 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
             } catch (error) {
                 console.log(error);
             } finally {
-                router.reload();
+                router.refresh();
             }
         }
     };
 
+
     const formattedDate = (dateString: Date) => {
         const date = new Date(dateString);
-        const formatted = [
-            ("0" + (date.getMonth() + 1)).slice(-2),
-            ("0" + date.getDate()).slice(-2),
-            date.getFullYear(),
-        ].join("/");
-        return formatted;
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
     };
+
 
     const rows = expenses.map((expense, index) => ({
         id: index + 1,
@@ -79,7 +82,7 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
         description: expense.description,
         amount: expense.amount,
         group: expense.group,
-        date: new Date(formattedDate(expense.date)) , //to be checked later
+        date: formattedDate(expense.date) , //to be checked later
         expenseId: expense.id,
     }));
 

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth";
 import { Expense } from "@/types/Expense";
 
-// create get by id route
+// expense get by id route
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const session = await getAuthSession();
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-// create delete by id route
+// expense delete by id route
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const session = await getAuthSession();
@@ -58,7 +58,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     }
 }
 
-// create update by id route
+// expense update by id route
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const session = await getAuthSession();

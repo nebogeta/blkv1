@@ -2,13 +2,15 @@ export const nodejs = `const axios = require("axios");
 
 const options = {
     method: 'POST',
-    url: 'https://similarityapi.com/api/v1/similarity',
+    url: 'https://blacklion.com/api/v1/expense',
     data: {
-      text1: 'First text',
-      text2: 'Second text'
+      Amount: '$99.99',
+      Date: '06/06/2023',
+      Description: 'Instacart',
+      Group: '6430',
     },
     headers: {
-      'Authorization': 'YOUR_API_KEY',
+      'Authorization': 'Session_Token',
     }
   };
   
@@ -20,18 +22,22 @@ axios.request(options).then(function (response) {
 
 export const python = `import requests
 
-url = 'https://similarityapi.com/api/v1/similarity'
-api_key = 'YOUR_API_KEY'
-text1 = 'First text'
-text2 = 'Second text'
+url = 'https://blacklion.com/api/v1/expense'
+authorization = 'Session_Token'
+Amount = '$99.99'
+Date = '00/00/0000'
+Description = 'Instacart'
+Group = '6430'
 
 headers = {
-    'Authorization': api_key
+    'Authorization': Session_Token
 }
 
 payload = {
-    'text1': text1,
-    'text2': text2
+    'Amount': $99.99,
+    'Date': 00/00/0000,
+    'Description': Instacart,
+    'Group': 6430
 }
 
 response = requests.post(url, headers=headers, json=payload)

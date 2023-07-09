@@ -4,20 +4,24 @@ import ExpenseOptions from "@/components/ExpenseOptions";
 import LargeHeading from "@/components/ui/LargeHeading";
 import Paragraph from "@/components/ui/Paragraph";
 import Table from "@/components/ui/Table";
-import { connect } from 'react-redux';
-import {store} from "@/redux/store";
-import { Expense } from "@/types/Expense";
-import React from "react";
+import {Expense} from "@prisma/client";
+import React, {useContext} from "react";
+import {ExpenseContext} from "@/context/ExpenseContext";
+
 
 interface GroupDashboardProps {
     expenses: Expense[];
 }
 
-const GroupDashboard: React.FC<GroupDashboardProps> = ({ expenses }) => {
+const GroupDashboard: React.FC<GroupDashboardProps> = ({expenses}) => {
+
+    const { expenses: contextExpenses,setExpenses } = useContext(ExpenseContext)
+
     // Calculate the total amount spent by each user
     const usersTotalExpense: Record<string, number> = {};
-    expenses.forEach((expense) => {
+    contextExpenses.forEach((expense) => {
         const { name, amount } = expense;
+        // @ts-ignore
         usersTotalExpense[name] = (usersTotalExpense[name] || 0) + amount;
     });
 
@@ -41,16 +45,16 @@ const GroupDashboard: React.FC<GroupDashboardProps> = ({ expenses }) => {
 
     return (
         <div className="container flex flex-col gap-6">
-            <LargeHeading className='mt-6'>Welcome back to {expenses[0]?.group} expense group</LargeHeading>
+            <LargeHeading className='mt-6'>Welcome back to {contextExpenses[0]?.group} expense group</LargeHeading>
             <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start items-center">
-                <ExpenseOptions expenses={expenses} />
+                <ExpenseOptions expenses={contextExpenses} />
             </div>
 
             <Paragraph className="text-center md:text-left mt-4 mb-4">
                 You can filter your expenses by selecting the options from the dropdown above.
             </Paragraph>
 
-            <Table expenses={expenses} />
+            <Table expenses={contextExpenses} />
             {numUsers >= 2 && (
                 <div className="mt-4">
                     <Paragraph className="font-bold text-start">Amounts Owed:</Paragraph>
@@ -67,8 +71,6 @@ const GroupDashboard: React.FC<GroupDashboardProps> = ({ expenses }) => {
     );
 };
 
-const mapStateToProps = (state:  any) => ({
-    expenses: state.expenses,
-});
 
-export default connect(mapStateToProps)(GroupDashboard);
+
+export default GroupDashboard;

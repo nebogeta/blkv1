@@ -1,9 +1,9 @@
 //expense expense interface
 export interface Expense {
-    id: number;
+    id?: number;
     name: string;
     amount: number;
-    date: Date;
+    date: string;
     group: string;
     description: string;
 }
