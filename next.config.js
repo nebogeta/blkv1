@@ -4,7 +4,7 @@ const nextConfig = {
         domains: ["res.cloudinary.com", "lh3.googleusercontent.com"],
     },
     experimental: {
-        appDir: true
+        appDir: true,
     },
 }
 
