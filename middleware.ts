@@ -1,6 +1,6 @@
 import {getToken} from 'next-auth/jwt'
 import {withAuth} from 'next-auth/middleware'
-import {NextResponse} from 'next/server'
+import  {NextResponse} from 'next/server'
 
 
 export default withAuth(
@@ -16,10 +16,10 @@ export default withAuth(
 
         if (isAuthPage) {
             if (isAuth) {
-                return NextResponse.redirect(new URL('/dashboard', req.url))
+                return NextResponse.redirect(new URL('/', req.url))
             }
 
-            return null
+
         }
 
         if (
@@ -44,3 +44,4 @@ export default withAuth(
 export const config = {
     matcher: ['/', '/login', '/dashboard/:path*', '/api/:path*', '/create/:path*', '/update/:path*', '/group/:path*'],
 }
+
