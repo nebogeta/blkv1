@@ -4,7 +4,9 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
+
 export const authOptions: NextAuthOptions = {
+
     adapter: PrismaAdapter(db),
     secret: process.env.SECRET,
     session: {
