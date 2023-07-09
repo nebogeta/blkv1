@@ -9,9 +9,9 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: 'jwt',
     },
-    // pages: {
-    //     signIn: '/login',
-    // },
+    pages: {
+        signIn: '/login',
+    },
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
             }
         },
         redirect() {
-            return '/'
+            return '/dashboard'
         },
     },
 }
