@@ -25,7 +25,7 @@ const ExpenseDashboard = async ({}) => {
     }, 0);
 
     const roundedTotal = total.toFixed(2);
-    // roundedTotal = 0.00 in number format
+
     const roundedTotalNumber = Number(roundedTotal);
 
     return (
