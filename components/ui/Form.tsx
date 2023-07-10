@@ -7,7 +7,7 @@ import {Button} from "@/components/ui/Button";
 
 interface Expense {
     description: string;
-    amount: string;
+    amount: number;
     group: string;
     date: Date;
 }
@@ -26,7 +26,7 @@ function Form({ type, expense, setExpense, isEditing, updateExpense }: FormProps
     };
 
     const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setExpense({ ...expense, amount: (e.target.value) });
+        setExpense({ ...expense, amount: Number(e.target.value) });
     };
 
     const handleGroupChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ function Form({ type, expense, setExpense, isEditing, updateExpense }: FormProps
                         placeholder="Enter amount"
                         value={expense.amount}
                         onChange={handleAmountChange}
-                        type="text"
+                        type="number"
                     />
 
                     <Input
