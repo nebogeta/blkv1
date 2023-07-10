@@ -74,6 +74,13 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
         const year = date.getFullYear();
         return `${month}/${day}/${year}`;
     };
+    // const formattedDate = (dateString: string) => {
+    //     const date = new Date(dateString);
+    //     const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    //     const day = ("0" + date.getDate()).slice(-2);
+    //     const year = date.getFullYear();
+    //     return `${month}/${day}/${year}`;
+    // };
 
 
     const rows = expenses.map((expense, index) => ({

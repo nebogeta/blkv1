@@ -12,7 +12,7 @@ import { NextPage } from "next";
 
 interface ExpenseData {
     description: string;
-    amount: number;
+    amount: string;
     group: string;
     date: Date;
 }
@@ -21,7 +21,7 @@ const CreateExpense: NextPage = () => {
     const [isCreating, setIsCreating] = useState<boolean>(false);
     const [data, setData] = useState<ExpenseData>({
         description: "",
-        amount: 0,
+        amount: "",
         group: "",
         date: new Date(),
     });
@@ -39,7 +39,7 @@ const CreateExpense: NextPage = () => {
                 },
             })
                 .then(() => {
-                    setData({ description: "", amount: 0, group: "", date: new Date() });
+                    setData({ description: "", amount: "", group: "", date: new Date() });
                 })
                 .then(() => {
                     toast({
@@ -84,11 +84,17 @@ const CreateExpense: NextPage = () => {
                         }
                     />
 
+                    {/*<Input*/}
+                    {/*    placeholder="Enter amount"*/}
+                    {/*    value={data.amount}*/}
+                    {/*    onChange={(e) => setData({ ...data, amount:  Number(e.target.value)})}*/}
+                    {/*    type="number"*/}
+                    {/*/>*/}
                     <Input
                         placeholder="Enter amount"
-                        value={data.amount}
-                        onChange={(e) => setData({ ...data, amount:  Number(e.target.value) })}
-                        type="number"
+                        value={data.amount.toString()}
+                        onChange={(e) => setData({ ...data, amount: e.target.value })}
+                        type="text"
                     />
                     <Input
                         placeholder="Enter GroupExpenses"
@@ -104,6 +110,17 @@ const CreateExpense: NextPage = () => {
                         }
                         type="date"
                     />
+                    {/*<Input*/}
+                    {/*    placeholder="Enter Date"*/}
+                    {/*    value={data.date.toISOString().split("T")[0]}*/}
+                    {/*    onChange={(e) => {*/}
+                    {/*        const timezoneOffset = new Date().getTimezoneOffset() * 60000; // Get the timezone offset in milliseconds*/}
+                    {/*        const selectedDate = new Date(e.target.value);*/}
+                    {/*        const correctedDate = new Date(selectedDate.getTime() - timezoneOffset); // Apply the offset to get the correct date*/}
+                    {/*        setData({ ...data, date: correctedDate });*/}
+                    {/*    }}*/}
+                    {/*    type="date"*/}
+                    {/*/>*/}
                 </div>
                 <div className="mt-6 flex justify-center sm:mt-0 sm:ml-4 sm:flex-shrink-0">
                     <Button disabled={!data} isLoading={isCreating}>

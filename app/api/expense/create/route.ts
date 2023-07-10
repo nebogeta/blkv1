@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { authOptions } from "@/lib/auth";
-import { getAuthSession } from "@/lib/auth";
+import {NextRequest, NextResponse} from "next/server";
+import {db} from "@/lib/db";
+import {getAuthSession} from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
     try {
@@ -18,7 +17,7 @@ export async function POST(req: NextRequest) {
                 description,
                 amount: Number(amount),
                 group,
-                date: new Date(date),
+                date: date.toString(),
                 userId: session.user.id,
                 name: session.user.name,
             },
