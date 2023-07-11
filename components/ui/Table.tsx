@@ -10,6 +10,8 @@ import {useTheme} from "next-themes";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {Expense} from '@prisma/client'
+import {format} from "date-fns";
+import moment from "moment";
 
 interface TableProps {
     expenses: Expense[];
@@ -20,12 +22,14 @@ type ModifiedExpense<k extends keyof Expense> = {
 
 const Table: React.FC<TableProps> = ({ expenses }) => {
     const [data, setData] = useState([]);
+
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
         { field: "name", headerName: "Username", width: 250 },
         { field: "description", headerName: "Description", width: 250 },
         { field: "amount", headerName: "Amount in $", width: 200 },
-        { field: "date", headerName: "Date", width: 150 },
+        { field: "date", headerName: "Date", width: 150 ,  valueFormatter: params =>
+                moment(params?.value).format("MM/DD/yyyy"),},
         { field: "group", headerName: "Group", width: 150 },
         {
             field: "action",
@@ -67,29 +71,23 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
     };
 
 
-    const formattedDate = (dateString: Date) => {
-        const date = new Date(dateString);
-        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-        const day = ("0" + date.getDate()).slice(-2);
-        const year = date.getFullYear();
+    const formatDate = (date: Date) => {
+        const modifiedDate = new Date(date);
+        modifiedDate.setDate(modifiedDate.getDate() + 1);
+        const month = ("0" + (modifiedDate.getMonth() + 1)).slice(-2);
+        const day = ("0" + modifiedDate.getDate()).slice(-2);
+        const year = modifiedDate.getFullYear();
+
         return `${month}/${day}/${year}`;
     };
-    // const formattedDate = (dateString: string) => {
-    //     const date = new Date(dateString);
-    //     const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    //     const day = ("0" + date.getDate()).slice(-2);
-    //     const year = date.getFullYear();
-    //     return `${month}/${day}/${year}`;
-    // };
 
-
-    const rows = expenses.map((expense, index) => ({
+    const row = expenses.map((expense, index) => ({
         id: index + 1,
         name: expense.name,
         description: expense.description,
         amount: expense.amount,
         group: expense.group,
-        date: formattedDate(expense.date) , //to be checked later
+        date: formatDate(expense.date), //to be checked later
         expenseId: expense.id,
     }));
 
@@ -140,7 +138,7 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
                 pageSizeOptions={[10, 25, 50, 100]}
                 disableRowSelectionOnClick
                 autoHeight
-                rows={rows}
+                rows={row}
                 columns={updatedColumns}
             />
         </ThemeProvider>

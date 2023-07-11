@@ -3,6 +3,8 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import {mockProviders} from "next-auth/client/__tests__/helpers/mocks";
+import Credentials from "next-auth/providers/credentials";
 
 
 export const authOptions: NextAuthOptions = {
@@ -20,6 +22,7 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         }),
+
     ],
     callbacks: {
         async session({ token, session }) {
@@ -46,7 +49,6 @@ export const authOptions: NextAuthOptions = {
             }
 
 
-
             return {
                 id: dbUser.id,
                 name: dbUser.name,
@@ -56,7 +58,7 @@ export const authOptions: NextAuthOptions = {
         },
 
         async redirect() {
-            return '/dashboard'
+            return '/'
         },
 
 

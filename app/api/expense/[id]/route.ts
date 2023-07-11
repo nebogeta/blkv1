@@ -97,7 +97,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
                 description: description,
                 amount: Number(amount),
                 group: group,
-                date: new Date(date),
+                date: new Date(date).toISOString(),
                 userId: session.user.id,
                 name: session.user.name,
             },

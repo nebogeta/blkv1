@@ -17,14 +17,14 @@ export async function POST(req: NextRequest) {
                 description,
                 amount: Number(amount),
                 group,
-                date: date.toString(),
+                date: new Date(date).toISOString(),
                 userId: session.user.id,
                 name: session.user.name,
             },
         });
 
-        // @ts-ignore
-        return new NextResponse.json(expense, { status: 201 });
+
+        return NextResponse.json(expense, { status: 201 });
     } catch (error) {
 
         return new NextResponse("Internal Server error", { status: 500 });

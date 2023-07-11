@@ -91,7 +91,6 @@ function GroupForm({
 
                     <Input
                         placeholder="Enter start date"
-                        // value={dynamicQuery.startDate.toISOString()}
                         onChange={(e) =>
                             setDynamicQuery({ ...dynamicQuery, startDate: e.target.value})
                         }
@@ -100,7 +99,6 @@ function GroupForm({
                     />
                     <Input
                         placeholder="Enter end date"
-                        // value={dynamicQuery.endDate.toISOString()}
                         type="date"
                         required={true}
                         onChange={(e) =>
