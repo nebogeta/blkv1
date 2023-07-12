@@ -52,7 +52,7 @@ const GroupDashboard: React.FC<GroupDashboardProps> = ({ expenses }) => {
         formattedAmountOwed[userId] = USDollar.format(Math.abs(amount));
     });
 
-    // add a functionality to send email to users in the group with the amount they owe at the end of the month
+
 
     return (
         <div className="container flex flex-col gap-6">

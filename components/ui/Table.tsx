@@ -21,12 +21,15 @@ type ModifiedExpense<k extends keyof Expense> = {
 
 const Table: React.FC<TableProps> = ({ expenses }) => {
     const [data, setData] = useState([]);
-
+    let USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
         { field: "name", headerName: "Username", width: 250 },
         { field: "description", headerName: "Description", width: 250 },
-        { field: "amount", headerName: "Amount in $", width: 200 },
+        { field: "amount", headerName: "Amount", width: 200, valueFormatter: (params) => USDollar.format(params.value as number)},
 
         {
             field: "date",

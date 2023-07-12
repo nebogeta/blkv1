@@ -16,16 +16,19 @@ export async function GET(req: Request, { params }: { params:{startDate: Date, e
         }
 
 
+
         const expenses = await db.expense.findMany({
             where: {
                 date: {
                     gte: new Date(params.startDate).toISOString(),
                     lte: new Date(params.endDate).toISOString(),
                 },
-                group: {
-                    startsWith: params.groupId,
 
-                },
+                group: {
+                    equals: params.groupId,
+
+                }
+
             },
             include: {
                 user: true,
