@@ -1,15 +1,17 @@
-import { authOptions } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+import {authOptions} from "@/lib/auth";
+import {db} from "@/lib/db";
+import {getServerSession} from "next-auth";
 import LargeHeading from "@/components/ui/LargeHeading";
 import Paragraph from "@/components/ui/Paragraph";
 import Table from "@/ui/Table";
 import ExpenseOptions from "@/components/ExpenseOptions";
-import { notFound } from 'next/navigation'
+import {notFound} from 'next/navigation'
+
 
 
 const ExpenseDashboard = async ({}) => {
     const user = await getServerSession(authOptions);
+
     if (!user) return notFound();
 
     const expenses = await db.expense.findMany({
@@ -27,7 +29,12 @@ const ExpenseDashboard = async ({}) => {
     const roundedTotal = total.toFixed(2);
 
     const roundedTotalNumber = Number(roundedTotal);
+    let USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
 
+    const formattedTotal = USDollar.format(roundedTotalNumber);
     return (
         <div className="container flex flex-col gap-6">
             <LargeHeading >Welcome back, {user.user.name}</LargeHeading>
@@ -41,7 +48,7 @@ const ExpenseDashboard = async ({}) => {
 
             <Table expenses={expenses} />
             {roundedTotalNumber > 0 && <Paragraph className="text-center font-semibold md:text-left mt-4 -mb-4 ">
-                Total: ${roundedTotal}
+                Total: {formattedTotal}
             </Paragraph>}
         </div>
     );

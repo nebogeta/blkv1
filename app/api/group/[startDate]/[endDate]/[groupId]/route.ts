@@ -24,6 +24,7 @@ export async function GET(req: Request, { params }: { params:{startDate: Date, e
                 },
                 group: {
                     startsWith: params.groupId,
+
                 },
             },
             include: {

@@ -11,7 +11,6 @@ import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {Expense} from '@prisma/client'
 import {format} from "date-fns";
-import moment from "moment";
 
 interface TableProps {
     expenses: Expense[];
@@ -28,8 +27,13 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
         { field: "name", headerName: "Username", width: 250 },
         { field: "description", headerName: "Description", width: 250 },
         { field: "amount", headerName: "Amount in $", width: 200 },
-        { field: "date", headerName: "Date", width: 150 ,  valueFormatter: params =>
-                moment(params?.value).format("MM/DD/yyyy"),},
+
+        {
+            field: "date",
+            headerName: "Date",
+            width: 150,
+            valueFormatter: (params) => format(new Date(params.value as string), "MM/dd/yyyy"),
+        },
         { field: "group", headerName: "Group", width: 150 },
         {
             field: "action",

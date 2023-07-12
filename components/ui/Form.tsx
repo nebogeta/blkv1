@@ -39,6 +39,7 @@ function Form({type, expense, setExpense, isEditing, updateExpense}: FormProps) 
 
     };
 
+
     return (
         <div className="container md:max-w-2xl">
             <div className="flex flex-col gap-6 items-center mt-12">

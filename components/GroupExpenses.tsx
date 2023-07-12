@@ -31,7 +31,7 @@ const GroupExpenses: FC<GroupExpensesProps> = ({ expenses,  }) => {
         try {
             const res = await fetch(`/api/group/${dynamicQuery.startDate}/${dynamicQuery.endDate}/${dynamicQuery.groupId}`);
             const expenses = await res.json();
-            console.log(expenses);
+
 
             if (expenses.length === 0) {
                 toast({
@@ -45,7 +45,7 @@ const GroupExpenses: FC<GroupExpensesProps> = ({ expenses,  }) => {
             }
 
             if (res.status === 200) {
-                setExpenses(expenses);
+                setExpenses(...[expenses]);
                 router.push('/group-search');
             }
         } catch (error) {
