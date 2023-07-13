@@ -11,7 +11,6 @@ import {buttonVariants} from "@/ui/Button";
 import Icons from "@/components/Icons";
 
 
-
 const ExpenseDashboard = async ({}) => {
     const user = await getServerSession(authOptions);
 
@@ -24,7 +23,6 @@ const ExpenseDashboard = async ({}) => {
     });
 
 
-    // @ts-ignore
     const total = expenses.reduce((acc, expense) => {
         return acc + expense.amount;
     }, 0);
@@ -38,18 +36,20 @@ const ExpenseDashboard = async ({}) => {
     });
 
     const formattedTotal = USDollar.format(roundedTotalNumber);
+
+
     return (
         <div className="container flex flex-col gap-6">
-            <LargeHeading >Welcome back, {user.user.name}</LargeHeading>
+            <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
             <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start items-center">
-                <ExpenseOptions expenses={expenses} />
+                <ExpenseOptions expenses={expenses}/>
             </div>
 
             <Paragraph className="text-center md:text-left mt-4 mb-4">
                 Your Expense history:
             </Paragraph>
 
-            <Table expenses={expenses} />
+            <Table expenses={expenses}/>
             {roundedTotalNumber > 0 && <Paragraph className="text-center font-semibold md:text-left mt-4 -mb-4 ">
                 Total: {formattedTotal}
             </Paragraph>}
@@ -60,7 +60,7 @@ const ExpenseDashboard = async ({}) => {
                         className: 'w-fit',
                     })}
                     href='/'>
-                    <Icons.ChevronLeft className='mr-2 h-4 w-4' />
+                    <Icons.ChevronLeft className='mr-2 h-4 w-4'/>
                     Back to home
                 </Link>
             </div>

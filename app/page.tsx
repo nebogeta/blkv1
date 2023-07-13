@@ -22,7 +22,7 @@ export default function Home() {
             </LargeHeading>
 
             <Paragraph className='max-w-xl lg:text-left'>
-              Black Lion Expense Tracking App: Simplify Your Finances, Leave Spreadsheets Behind!{" "}
+              Black Lion Expense Tracking App: Simplify Your Finances, <br /> Leave Spreadsheets Behind!{" "}
               <Link
                   href='/login'
                   className='underline underline-offset-2 text-black dark:text-light-gold'>

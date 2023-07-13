@@ -75,8 +75,8 @@ const ExpenseOptions: FC<ExpenseOptionsProp> = ({expenses}) => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem onClick={create}> Create New</DropdownMenuItem>
-                <DropdownMenuItem onClick={group}> Go to Group</DropdownMenuItem>
+                <DropdownMenuItem onClick={create}>Create New Expense</DropdownMenuItem>
+                <DropdownMenuItem onClick={group}>Go to Group</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );
