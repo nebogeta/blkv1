@@ -7,6 +7,9 @@ import Table from "@/components/ui/Table";
 import { Expense } from "@prisma/client";
 import React, { useContext } from "react";
 import { ExpenseContext } from "@/context/ExpenseContext";
+import Link from "next/link";
+import {buttonVariants} from "@/ui/Button";
+import Icons from "@/components/Icons";
 
 interface GroupDashboardProps {
     expenses: Expense[];
@@ -78,6 +81,17 @@ const GroupDashboard: React.FC<GroupDashboardProps> = ({ expenses }) => {
                     </ul>
                 </div>
             )}
+            <div className='flex flex-col items-center gap-6 text-center'>
+                <Link
+                    className={buttonVariants({
+                        variant: 'ghost',
+                        className: 'w-fit',
+                    })}
+                    href='/dashboard'>
+                    <Icons.ChevronLeft className='mr-2 h-4 w-4' />
+                    Back to your dashboard
+                </Link>
+            </div>
         </div>
     );
 };

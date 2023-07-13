@@ -7,7 +7,7 @@ import {createTheme, ThemeProvider} from "@mui/material";
 // @ts-ignore
 import {DataGrid, GridColDef, GridRenderHeaderParams} from "@mui/x-data-grid";
 import {useTheme} from "next-themes";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {Expense} from '@prisma/client'
 import {format} from "date-fns";
@@ -20,6 +20,8 @@ type ModifiedExpense<k extends keyof Expense> = {
 }
 
 const Table: React.FC<TableProps> = ({ expenses }) => {
+
+    const currentPathname = usePathname();
     const [data, setData] = useState([]);
     let USDollar = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -38,13 +40,21 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
             valueFormatter: (params) => format(new Date(params.value as string), "MM/dd/yyyy"),
         },
         { field: "group", headerName: "Group", width: 150 },
-        {
+
+
+    ];
+
+    if (currentPathname === "/dashboard") {
+        columns.push({
+
             field: "action",
             headerName: "Update",
             width: 150,
             renderCell: (params) => renderActionsCell(params.row.expenseId),
-        },
-    ];
+
+        });
+    }
+
 
     const router = useRouter();
     const handleEdit = async (itemId: number) => {
@@ -94,7 +104,7 @@ const Table: React.FC<TableProps> = ({ expenses }) => {
         description: expense.description,
         amount: expense.amount,
         group: expense.group,
-        date: formatDate(expense.date), //to be checked later
+        date: formatDate(expense.date),
         expenseId: expense.id,
     }));
 

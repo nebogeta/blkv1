@@ -6,6 +6,9 @@ import Paragraph from "@/components/ui/Paragraph";
 import Table from "@/ui/Table";
 import ExpenseOptions from "@/components/ExpenseOptions";
 import {notFound} from 'next/navigation'
+import Link from "next/link";
+import {buttonVariants} from "@/ui/Button";
+import Icons from "@/components/Icons";
 
 
 
@@ -50,6 +53,17 @@ const ExpenseDashboard = async ({}) => {
             {roundedTotalNumber > 0 && <Paragraph className="text-center font-semibold md:text-left mt-4 -mb-4 ">
                 Total: {formattedTotal}
             </Paragraph>}
+            <div className='flex flex-col items-center gap-6 text-center'>
+                <Link
+                    className={buttonVariants({
+                        variant: 'ghost',
+                        className: 'w-fit',
+                    })}
+                    href='/'>
+                    <Icons.ChevronLeft className='mr-2 h-4 w-4' />
+                    Back to home
+                </Link>
+            </div>
         </div>
     );
 };
